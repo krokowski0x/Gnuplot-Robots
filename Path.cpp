@@ -3,34 +3,34 @@
 #include "Vector2D.hh"
 #include "Path.hh"
 
-void Sciezka::setStart(Wektor2D s)
+void Path::setStart(Vector2D s)
 {
   start = s;
 }
 
-void Sciezka::setEnd(Wektor2D e)
+void Path::setEnd(Vector2D e)
 {
   end = e;
 }
 
-Wektor2D Sciezka::getStart()
+Vector2D Path::getStart()
 {
   return start;
 }
 
-Wektor2D Sciezka::getEnd()
+Vector2D Path::getEnd()
 {
   return end;
 }
 
-bool Sciezka::drawToFile(const char *sFile)
+bool Path::drawToFile(const char *sFile)
 {
   ofstream fileStrm;
 
   fileStrm.open(sFile, std::ios::out | std::ios::app);
   if(!fileStrm.is_open()) {
-    cerr << "Operacja otwarcia do zapisu \"" << sFile << "\"" << std::endl
-    << " nie powiodla sie." << std::endl;
+    cerr << "Opening file \"" << sFile << "\"" << std::endl
+    << " failed." << std::endl;
     return false;
   }
 

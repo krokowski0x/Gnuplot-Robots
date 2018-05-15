@@ -4,33 +4,33 @@
 #include "Vector2D.hh"
 #include "Matrix2x2.hh"
 
-void Wektor2D::setX (double a)
+void Vector2D::setX (double a)
 {
   x = a;
 }
 
-void Wektor2D::setY (double a)
+void Vector2D::setY (double a)
 {
   y = a;
 }
 
-double Wektor2D::getX()
+double Vector2D::getX()
 {
   return x;
 }
 
-double Wektor2D::getY()
+double Vector2D::getY()
 {
   return y;
 }
 
-bool Wektor2D::drawToFile (const char *sFile)
+bool Vector2D::drawToFile (const char *sFile)
 {
   ofstream fileStrm;
   fileStrm.open("sFile");
   if(!fileStrm.is_open()){
-    cerr << "Operacja otwarcia do zapisu \"" << sFile << "\"" << std::endl
-	 << "nie powiodla sie" << std::endl;
+    cerr << "Opening file \"" << sFile << "\"" << std::endl
+	 << " failed." << std::endl;
   }
 
   fileStrm << setw(16) << fixed << setprecision(10) << x;
@@ -40,47 +40,47 @@ bool Wektor2D::drawToFile (const char *sFile)
   return !fileStrm.fail();
 }
 
-Wektor2D operator + (Wektor2D &wek1, Wektor2D &wek2)
+Vector2D operator + (Vector2D &vec1, Vector2D &vec2)
 {
-  Wektor2D tmp;
-  tmp.setX(wek1.getX() + wek2.getX());
-  tmp.setY(wek1.getY() + wek2.getY());
+  Vector2D tmp;
+  tmp.setX(vec1.getX() + vec2.getX());
+  tmp.setY(vec1.getY() + vec2.getY());
   return tmp;
 }
 
-Wektor2D operator - (Wektor2D &wek1, Wektor2D &wek2)
+Vector2D operator - (Vector2D &vec1, Vector2D &vec2)
 {
-  Wektor2D tmp;
-  tmp.setX(wek1.getX() - wek2.getX());
-  tmp.setY(wek1.getY() - wek2.getY());
+  Vector2D tmp;
+  tmp.setX(vec1.getX() - vec2.getX());
+  tmp.setY(vec1.getY() - vec2.getY());
   return tmp;
 }
 
-std::istream& operator >> (std::istream &Strm, Wektor2D &Wek)
+std::istream& operator >> (std::istream &Strm, Vector2D &Vec)
 {
   double x,y;
   Strm >> x >> y;
-  Wek.setX(x);
-  Wek.setY(y);
+  Vec.setX(x);
+  Vec.setY(y);
   return Strm;
 }
 
-std::ostream& operator << (std::ostream &Strm, Wektor2D &Wek)
+std::ostream& operator << (std::ostream &Strm, Vector2D &Vec)
 {
-  return Strm << Wek.getX() << "\t" << Wek.getY() << endl;
+  return Strm << Vec.getX() << "\t" << Vec.getY() << endl;
 }
 
-Wektor2D operator * (Wektor2D &wek, Macierz2x2 &mac)
+Vector2D operator * (Vector2D &vec, Matrixz2x2 &m)
 {
-  wek.setX( (wek.getX()*mac.get(0,0)) + (wek.getY()*mac.get(0,1)) );
-  wek.setY( (wek.getX()*mac.get(1,0)) + (wek.getY()*mac.get(1,1)) );
-  return wek;
+  vec.setX( (vec.getX()*m.get(0,0)) + (vec.getY()*m.get(0,1)) );
+  vec.setY( (vec.getX()*m.get(1,0)) + (vec.getY()*m.get(1,1)) );
+  return vec;
 }
 
-Wektor2D operator * (Wektor2D &wek, double a)
+Vector2D operator * (Vector2D &vec, double a)
 {
-  Wektor2D tmp;
-  tmp.setX(wek.getX()*a);
-  tmp.setY(wek.getY()*a);
+  Vector2D tmp;
+  tmp.setX(vec.getX()*a);
+  tmp.setY(vec.getY()*a);
   return tmp;
 }

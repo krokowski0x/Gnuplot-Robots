@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class Wektor2D {
+class Vector2D {
 
   double x,y;
 
@@ -18,11 +18,11 @@ public:
   bool drawToFile(const char *sFile);
 };
 
-Wektor2D operator + (Wektor2D &wek1, Wektor2D &wek2);
-Wektor2D operator - (Wektor2D &wek1, Wektor2D &wek2);
-Wektor2D operator * (Wektor2D &wek, Macierz2x2 &mac);
-Wektor2D operator * (Wektor2D &wek, double a);
-std::istream& operator >> (std::istream &Strm, Wektor2D &Wek);
-std::ostream& operator << (std::ostream &Strm, Wektor2D &Wek);
+Vector2D operator + (Vector2D &vec1, Vector2D &vec2);
+Vector2D operator - (Vector2D &vec1, Vector2D &vec2);
+Vector2D operator * (Vector2D &vec, Matrix2x2 &m);
+Vector2D operator * (Vector2D &vec, double a);
+std::istream& operator >> (std::istream &Strm, Vector2D &Vec);
+std::ostream& operator << (std::ostream &Strm, Vector2D &Vec);
 
 #endif

@@ -4,97 +4,96 @@
 #include "Vector2D.hh"
 #include "Matrix2x2.hh"
 
-Wektor2D& Prostokat::operator [] (const int i)
+Vector2D& Rectangle::operator [] (const int i)
 {
   switch(i){
   case 1:
-    return w1;
+    return v1;
     break;
   case 2:
-    return w2;
+    return v2;
     break;
   case 3:
-    return w3;
+    return v3;
     break;
   case 4:
-    return w4;
+    return v4;
     break;
   }
-  return w1;
+  return v1;
 }
 
 
-void Prostokat::equal()
+void Rectangle::equal()
 {
   if (pow(w1.getX() - w2.getX(),2) + pow(w1.getY() - w2.getY(),2) ==
       pow(w3.getX() - w4.getX(),2) + pow(w3.getY() - w4.getY(),2)){
-    cout << "Dluzsze boki sa sobie rowne!" << endl;
+    cout << "Longer sides are equal!" << endl;
   } else {
-    cout << " UWAGA! Dluzsze boki nie sa sobie rowne!" << endl;
+    cout << "WARNING! Longer sides are NOT equal!" << endl;
   }
   if (pow(w1.getX() - w3.getX(),2) + pow(w1.getY() - w3.getY(),2) ==
       pow(w2.getX() - w4.getX(),2) + pow(w2.getY() - w4.getY(),2)){
-    cout << "Krotsze boki sa sobie rowne!" << endl << endl;
+    cout << "Shorter sides are equal!" << endl << endl;
   } else {
-    cout << " UWAGA! Krotsze boki nie sa sobie rowne!" << endl << endl;
+    cout << "WARNING! Shorter sides are NOT equal!" << endl << endl;
   }
 }
 
-Prostokat operator + (Prostokat &p, Wektor2D &wek)
+Rectangle operator + (Rectangle &r, Vector2D &vec)
 {
-  p[1] = p[1]+wek;
-  p[2] = p[2]+wek;
-  p[3] = p[3]+wek;
-  p[4] = p[4]+wek;
-  return p;
+  r[1] = r[1]+vec;
+  r[2] = r[2]+vec;
+  r[3] = r[3]+vec;
+  r[4] = r[4]+vec;
+  return r;
 }
 
-Prostokat operator * (Prostokat &p, Macierz2x2 &mac)
+Rectangle operator * (Rectangle &r, Marix2x2 &m)
 {
-  p[1] = p[1]*mac;
-  p[2] = p[2]*mac;
-  p[3] = p[3]*mac;
-  p[4] = p[4]*mac;
-  return p;
+  r[1] = r[1]*m;
+  r[2] = r[2]*m;
+  r[3] = r[3]*m;
+  r[4] = r[4]*m;
+  return r;
 }
 
-std::ostream& operator << (std::ostream &Strm, Prostokat &Pros)
+std::ostream& operator << (std::ostream &Strm, Rectangle &Rect)
 {
-  Strm << Pros[1].getX() << "\t" << Pros[1].getY() << std::endl;
-  Strm << Pros[2].getX() << "\t" << Pros[2].getY() << std::endl;
-  Strm << Pros[3].getX() << "\t" << Pros[3].getY() << std::endl;
-  Strm << Pros[4].getX() << "\t" << Pros[4].getY() << std::endl;
+  Strm << Rect[1].getX() << "\t" << Rect[1].getY() << std::endl;
+  Strm << Rect[2].getX() << "\t" << Rect[2].getY() << std::endl;
+  Strm << Rect[3].getX() << "\t" << Rect[3].getY() << std::endl;
+  Strm << Rect[4].getX() << "\t" << Rect[4].getY() << std::endl;
   return Strm;
 }
 
-bool Prostokat::drawToFile(const char *sFile)
+bool Rectangle::drawToFile(const char *sFile)
 {
   ofstream fileStrm;
 
   fileStrm.open(sFile);
   if(!fileStrm.is_open()) {
-    cerr << "Operacja otwarcia do zapisu \"" << sFile << "\"" << std::endl
-    << " nie powiodla sie." << std::endl;
+    cerr << "Opening file \"" << sFile << "\"" << std::endl
+    << " failed." << std::endl;
     return false;
   }
 
-  fileStrm << setw(16) << fixed << setprecision(10) << w1;
-  fileStrm << setw(16) << fixed << setprecision(10) << w2;
-  fileStrm << setw(16) << fixed << setprecision(10) << w3;
-  fileStrm << setw(16) << fixed << setprecision(10) << w4;
-  fileStrm << setw(16) << fixed << setprecision(10) << w1;
+  fileStrm << setw(16) << fixed << setprecision(10) << v1;
+  fileStrm << setw(16) << fixed << setprecision(10) << v2;
+  fileStrm << setw(16) << fixed << setprecision(10) << v3;
+  fileStrm << setw(16) << fixed << setprecision(10) << v4;
+  fileStrm << setw(16) << fixed << setprecision(10) << v1;
 
   fileStrm.close();
   return !fileStrm.fail();
 }
 
-void Init (double x, double y, double s, Prostokat &p)
+void Init (double x, double y, double s, Rectangle &r)
 {
-  p.setSide(s);
+  r.setSide(s);
 
-  p[1].setX(x);       p[1].setY(y);
-  p[2].setX(x+(2*s)); p[2].setY(y);
-  p[3].setX(x+(2*s)); p[3].setY(y+s);
-  p[4].setX(x);       p[4].setY(y+s);
-
+  r[1].setX(x);       r[1].setY(y);
+  r[2].setX(x+(2*s)); r[2].setY(y);
+  r[3].setX(x+(2*s)); r[3].setY(y+s);
+  r[4].setX(x);       r[4].setY(y+s);
 }

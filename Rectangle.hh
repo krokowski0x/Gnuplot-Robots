@@ -8,27 +8,27 @@
 
 using namespace std;
 
-class Prostokat : public Wektor2D {
+class Rectangle : public Vector2D {
 
-  Wektor2D w1,w2,w3,w4;
+  Vector2D v1,v2,v3,v4;
   double side;
 
 public:
-  Prostokat() {}
-  Prostokat(const Prostokat &) {}
-  ~Prostokat() {}
-  Wektor2D& operator [] (const int i);
-  void equal();  // Sprawdza czy boki sa rowne
-  Prostokat operator * (double a);
+  Rectangle() {}
+  Rectangle(const Rectangle &) {}
+  ~Rectangle() {}
+  Vector2D& operator [] (const int i);
+  void equal();  // Checks if sides are equal
+  Rectangle operator * (double a);
   bool drawToFile (const char *sFile);
-  Prostokat obrot();
+  Rectangle rotate();
   void setSide (double s) { side = s; }
   double getSide() { return side; }
 };
 
-void Init (double x, double y, double s, Prostokat &p);
-Prostokat operator + (Prostokat &p, Wektor2D &wek);
-Prostokat operator * (Prostokat &p, Macierz2x2 &mac);
-std::ostream& operator << (std::ostream &Strm, Prostokat &Pros);
+void Init (double x, double y, double s, Rectangle &r);
+Rectangle operator + (Rectangle &r, Vector2D &v);
+Rectangle operator * (Rectangle &r, Macierz2x2 &m);
+std::ostream& operator << (std::ostream &Strm, Rectangle &Rect);
 
 #endif

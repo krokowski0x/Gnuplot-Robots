@@ -34,4 +34,4 @@ obj/Vector2D.o: Vector2D.cpp Vector2D.hh
 	g++ -c ${CXXFLAGS} -o obj/Vector2D.o Vector2D.cpp
 
 clean:
-	rm -f obj/*.o obroty_3D
+	rm -f obj/*.o robot2D

@@ -4,29 +4,29 @@
 #include "Robot2D.hh"
 #include "Stage.hh"
 
-void Scena::set (Prostokat &P1, Prostokat &P2, Prostokat &P3,
+void Stage::set (Rectangle &RECT1, Rectangle &RECT2, Rectangle &RECT3,
 		 robot &R1, robot &R2, robot &R3)
 {
-  p1 = P1; p2 = P2; p3 = P3;
+  p1 = RECT1; p2 = RECT2; p3 = RECT3;
   r1 = R1; r2 = R2; r3 = R3;
 }
 
-void Scena::setP (int i, Prostokat &p)
+void Stage::setRECT (int i, Rectangle &r)
 {
   switch(i) {
   case 1:
-    p1 = p;
+    rect1 = rect;
     break;
   case 2:
-    p2 = p;
+    rect2 = rect;
     break;
   case 3:
-    p3 = p;
+    rect3 = rect;
     break;
   }
 }
 
-void Scena::setR (int i, robot &r)
+void Stage::setR (int i, robot &r)
 {
   switch(i) {
   case 1:
@@ -41,23 +41,23 @@ void Scena::setR (int i, robot &r)
   }
 }
 
-Prostokat Scena::getP (int i)
+Rectangle Stage::getRECT (int i)
 {
   switch(i) {
   case 1:
-    return p1;
+    return rect1;
     break;
   case 2:
-    return p2;
+    return rect2;
     break;
   case 3:
-    return p3;
+    return rect3;
     break;
   }
-  return p1;
+  return rect1;
 }
 
-robot Scena::getR (int i)
+robot Stage::getR (int i)
 {
   switch(i) {
   case 1:

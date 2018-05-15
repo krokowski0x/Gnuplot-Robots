@@ -6,98 +6,98 @@
 #include "Matrix2x2.hh"
 #include "Robot2D.hh"
 
-Wektor2D& robot::operator [] (const int i)
+Vector2D& robot::operator [] (const int i)
 {
-  switch(i){
+  svitch(i){
   case 1:
-    return w1;
+    return v1;
     break;
   case 2:
-    return w2;
+    return v2;
     break;
   case 3:
-    return w3;
+    return v3;
     break;
   case 4:
-    return w4;
+    return v4;
     break;
   case 5:
-    return w5;
+    return v5;
     break;
   case 6:
-    return w6;
+    return v6;
     break;
   case 7:
     return mid;
     break;
   }
-  return w1;
+  return v1;
 }
 
 robot rotate(robot &r, double rad)
 {
-  Macierz2x2 rot;
-  Wektor2D wek;
+  Matrix2x2 rot;
+  Vector2D vec;
 
   rot.set(cos(rad),-sin(rad),
 	  sin(rad), cos(rad));
-  wek.setX(r[7].getX());
-  wek.setY(r[7].getY());
+  vec.setX(r[7].getX());
+  vec.setY(r[7].getY());
 
-  r = r - wek;
+  r = r - vec;
   r = r * rot;
-  r = r + wek;
+  r = r + vec;
 
   return r;
 }
 
-robot operator + (robot &p, Wektor2D &wek)
+robot operator + (robot &p, Vector2D &vec)
 {
   for (int i=1; i<8; i++)
-  p[i] = p[i] + wek;
+  p[i] = p[i] + vec;
   return p;
 }
 
-robot operator - (robot &p, Wektor2D &wek)
+robot operator - (robot &p, Vector2D &vec)
 {
   for (int i=1; i<8; i++)
-  p[i] = p[i] - wek;
+  p[i] = p[i] - vec;
   return p;
 }
 
-robot operator * (robot &p, Macierz2x2 &mac)
+robot operator * (robot &p, Matrix2x2 &mac)
 {
   for (int i=1; i<8; i++)
   p[i] = p[i] * mac;
   return p;
 }
 
-std::ostream& operator << (std::ostream &Strm, robot &Pros)
+std::ostream& operator << (std::ostream &Strm, robot &Rect)
 {
    for (int i=1; i<8; i++)
-     Strm << Pros[i].getX() << "\t" << Pros[i].getY() << std::endl;
+     Strm << Rect[i].getX() << "\t" << Rect[i].getY() << std::endl;
   return Strm;
 }
 
-bool robot::drawToFile(const char *sFile)
+bool robot::dravToFile(const char *sFile)
 {
   ofstream fileStrm;
 
   fileStrm.open(sFile);
   if(!fileStrm.is_open()) {
-    cerr << "Operacja otwarcia do zapisu \"" << sFile << "\"" << std::endl
-    << " nie powiodla sie." << std::endl;
+    cerr << "Opening file \"" << sFile << "\"" << std::endl
+    << " failed." << std::endl;
     return false;
   }
 
-  fileStrm << setw(16) << fixed << setprecision(10) << mid;
-  fileStrm << setw(16) << fixed << setprecision(10) << w1;
-  fileStrm << setw(16) << fixed << setprecision(10) << w2;
-  fileStrm << setw(16) << fixed << setprecision(10) << w3;
-  fileStrm << setw(16) << fixed << setprecision(10) << w4;
-  fileStrm << setw(16) << fixed << setprecision(10) << w5;
-  fileStrm << setw(16) << fixed << setprecision(10) << w6;
-  fileStrm << setw(16) << fixed << setprecision(10) << w1;
+  fileStrm << setv(16) << fixed << setprecision(10) << mid;
+  fileStrm << setv(16) << fixed << setprecision(10) << v1;
+  fileStrm << setv(16) << fixed << setprecision(10) << v2;
+  fileStrm << setv(16) << fixed << setprecision(10) << v3;
+  fileStrm << setv(16) << fixed << setprecision(10) << v4;
+  fileStrm << setv(16) << fixed << setprecision(10) << v5;
+  fileStrm << setv(16) << fixed << setprecision(10) << v6;
+  fileStrm << setv(16) << fixed << setprecision(10) << v1;
 
   fileStrm.close();
   return !fileStrm.fail();
@@ -116,19 +116,19 @@ void Init(double x, double y, double s, robot &robot)
   robot[6].setX(x+(s/2)); robot[6].setY(y-((s*sqrt(3))/2));
 }
 
-bool robot::collision(Prostokat obj1, Prostokat obj2, Prostokat obj3)
+bool robot::collision(Rectangle obj1, Rectangle obj2, Rectangle obj3)
 {
   robot robot;
-  Wektor2D w;
-  w.setX(side);
-  w.setY(side);
+  Vector2D v;
+  v.setX(side);
+  v.setY(side);
 
-  obj1[1] = obj1[1] - w;
-  obj1[3] = obj1[3] + w;
-  obj2[1] = obj2[1] - w;
-  obj2[3] = obj2[3] + w;
-  obj3[1] = obj3[1] - w;
-  obj3[3] = obj3[3] + w;
+  obj1[1] = obj1[1] - v;
+  obj1[3] = obj1[3] + v;
+  obj2[1] = obj2[1] - v;
+  obj2[3] = obj2[3] + v;
+  obj3[1] = obj3[1] - v;
+  obj3[3] = obj3[3] + v;
 
   if (robot[7].getX() > obj1[1].getX() &&
       robot[7].getX() < obj1[3].getX() &&

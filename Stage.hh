@@ -6,18 +6,18 @@
 #include "Rectangle.hh"
 #include "Robot2D.hh"
 
-class Scena {
+class Stage {
 
-  Prostokat p1,p2,p3;
+  Rectangle rect1,rect2,rect3;
   robot r1,r2,r3;
 
 public:
 
-  void set(Prostokat &P1, Prostokat &P2, Prostokat &P3,
+  void set(Rectangle &RECT1, Rectangle &RECT2, Rectangle &RECT3,
 	   robot &R1, robot &R2, robot &R3);
-  void setP (int i, Prostokat &p);
+  void setP (int i, Rectangle &p);
   void setR (int i, robot &r);
-  Prostokat getP (int i);
+  Rectangle getP (int i);
   robot getR (int i);
 };
 

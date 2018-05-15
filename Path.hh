@@ -3,18 +3,18 @@
 
 #include <iostream>
 #include <fstream>
-#include "Vektor2D.hh"
+#include "Vector2D.hh"
 
-class Sciezka : public Wektor2D {
+class Path : public Vector2D {
 
-  Wektor2D start,end;
+  Vector2D start, end;
 
 public:
 
-  void setStart(Wektor2D s);
-  void setEnd(Wektor2D e);
-  Wektor2D getStart();
-  Wektor2D getEnd();
+  void setStart(Vector2D s);
+  void setEnd(Vector2D e);
+  Vector2D getStart();
+  Vector2D getEnd();
   bool drawToFile (const char *sFile);
 };
 
