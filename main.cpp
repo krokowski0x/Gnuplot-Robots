@@ -20,12 +20,12 @@ double AtoR (double r)
 
 int main()
 {
-  Prostokat obj1,obj2,obj3;
-  robot robot,robot2,robot3,virtualRobot;
-  Scena scena;
-  Wektor2D wek, translacja;
-  Sciezka move,move2,move3,virtualMove;
-  PzG::LaczeDoGNUPlota Lacze;
+  Rectangle obj1,obj2,obj3;
+  robot robot, robot2, robot3, virtualRobot;
+  Stage stage;
+  Vector2D vec, translate;
+  Path move, move2, move3, virtualMove;
+  PzG::GNUPlotDoGNUPlota GNUPlot;
   char a = 'm';
   double angle = 0, rad = 0, rad1 = 0, rad2 = 0, rad3 = 0;
   double oldRad = 0, oldRad1 = 0, oldRad2 = 0, oldRad3 = 0;
@@ -35,30 +35,30 @@ int main()
   const char *objectFile = "robot.dat";
   const char *moveFile = "move.dat";
 
-  // Inicjalizacja GNUPlota
+  // GNUPlot init (methods have to be in Polish)
 
-  Lacze.DodajNazwePliku("obj1.dat",PzG::RR_Ciagly,2);
-  Lacze.DodajNazwePliku("obj2.dat",PzG::RR_Ciagly,2);
-  Lacze.DodajNazwePliku("obj3.dat",PzG::RR_Ciagly,2);
-  Lacze.DodajNazwePliku("robot.dat",PzG::RR_Ciagly,2);
-  Lacze.DodajNazwePliku("robot2.dat",PzG::RR_Ciagly,2);
-  Lacze.DodajNazwePliku("robot3.dat",PzG::RR_Ciagly,2);
-  Lacze.DodajNazwePliku("move.dat",PzG::RR_Ciagly,2);
-  Lacze.DodajNazwePliku("move2.dat",PzG::RR_Ciagly,2);
-  Lacze.DodajNazwePliku("move3.dat",PzG::RR_Ciagly,2);
-  Lacze.ZmienTrybRys(PzG::TR_2D);
-  Lacze.Inicjalizuj();
-  Lacze.UstawZakresX(-5,150);
-  Lacze.UstawZakresY(-5,150);
+  GNUPlot.DodajNazwePliku("obj1.dat",PzG::RR_Ciagly,2);
+  GNUPlot.DodajNazwePliku("obj2.dat",PzG::RR_Ciagly,2);
+  GNUPlot.DodajNazwePliku("obj3.dat",PzG::RR_Ciagly,2);
+  GNUPlot.DodajNazwePliku("robot.dat",PzG::RR_Ciagly,2);
+  GNUPlot.DodajNazwePliku("robot2.dat",PzG::RR_Ciagly,2);
+  GNUPlot.DodajNazwePliku("robot3.dat",PzG::RR_Ciagly,2);
+  GNUPlot.DodajNazwePliku("move.dat",PzG::RR_Ciagly,2);
+  GNUPlot.DodajNazwePliku("move2.dat",PzG::RR_Ciagly,2);
+  GNUPlot.DodajNazwePliku("move3.dat",PzG::RR_Ciagly,2);
+  GNUPlot.ZmienTrybRys(PzG::TR_2D);
+  GNUPlot.Inicjalizuj();
+  GNUPlot.UstawZakresX(-5,150);
+  GNUPlot.UstawZakresY(-5,150);
 
-  // Inicjalizacja obiektow graficznych
+  // Graphic objects init
 
-  Init(20,20,10,robot);
-  Init(110,20,15,robot2); rotate(robot2,M_PI);
-  Init(90,100,5,robot3);  rotate(robot3,M_PI);
-  Init(45,20,20,obj1);
-  Init(80,70,10,obj2);
-  Init(10,80,15,obj3);
+  Init(20,20,10, robot);
+  Init(110,20,15, robot2); rotate(robot2, M_PI);
+  Init(90,100,5, robot3);  rotate(robot3, M_PI);
+  Init(45,20,20, obj1);
+  Init(80,70,10, obj2);
+  Init(10,80,15, obj3);
 
   move.setStart(robot[7]);
   move.setEnd(robot[7]);
@@ -67,10 +67,10 @@ int main()
   move3.setStart(robot3[7]);
   move3.setEnd(robot3[7]);
 
-  scena.set(obj1,obj2,obj3,
+  stage.set(obj1,obj2,obj3,
 	          robot,robot2,robot3);
 
-  // Wypelnienie list
+  // List alternative
 
   /*  lista.push_back(obj1);
   lista.push_back(obj2);
@@ -82,7 +82,7 @@ int main()
   cout << "Liczba obiektow na scenie wynosi: " << lista.size() << endl << endl;
   */
 
-  // Zapis wspolrzednych do plikow i rysowanie w GNUPlocie
+  // Writing coords to file and GNUPlot drawing
 
   obj1.drawToFile("obj1.dat");
   obj2.drawToFile("obj2.dat");
@@ -94,7 +94,7 @@ int main()
   move2.drawToFile("move2.dat");
   move3.drawToFile("move3.dat");
 
-  Lacze.Rysuj();
+  GNUPlot.Rysuj();
 
   virtualRobot = robot;
   virtualMove = move;
@@ -102,7 +102,7 @@ int main()
   oldRad = oldRad1;
   oldDistance = oldDistance1;
 
-  // Menu uzytkownika
+  // USER'S MENU
 
   while(a != 'k'){
     switch(a){
@@ -110,19 +110,19 @@ int main()
     case 'm':
       cout << endl;
       cout << "M E N U:" << endl;
-      cout << "w - wybor robota" << endl;
-      cout << "z - zmiana szybkosci ruchu robota" << endl;
-      cout << "o - obrot robota" << endl;
-      cout << "j - jazda na wprost" << endl;
-      cout << "d - dlugosc przebytej sciezki" << endl;
-      cout << "t - translacja rysunku" << endl;
-      cout << "p - powrot do ustawien poczatkowych" << endl;
-      cout << "m - wyswietl menu" << endl;
-      cout << "k - zakoncz dzialanie programu" << endl;
+      cout << "w - pick a robot" << endl;
+      cout << "z - change robot's move speed" << endl;
+      cout << "o - rotate robot" << endl;
+      cout << "j - go forward" << endl;
+      cout << "d - robot's path length" << endl;
+      cout << "t - translate whole drawing" << endl;
+      cout << "p - back to the initial settings" << endl;
+      cout << "m - show manu" << endl;
+      cout << "k - exit" << endl;
       break;
 
-    case 'w': // Wybor robota
-      cout << "Wybierz robota (1, 2 lub 3):" << endl;
+    case 'w': // Pick a robot
+      cout << "Pick a robot (1, 2 or 3):" << endl;
       cin >> robotIndex;
       switch(robotIndex) {
       case 1:
@@ -155,12 +155,12 @@ int main()
       }
       break;
 
-    case 'z': // Zmiana szybkosci
-      cout << "Robot nie moze jechac za szybko. Teraz jest OK!" << endl;
+    case 'z': // Speed change
+      cout << "Robot can't go too fast. Now it's OK!" << endl;
       break;
 
-    case 'o': // Obrot o kat
-      cout << "Podaj kat:" << endl;
+    case 'o': // Rotate certain angle
+      cout << "Choose an angle to rotate:" << endl;
       cin >> angle;
 
       oldRad = rad;
@@ -168,41 +168,41 @@ int main()
 
       rotate(virtualRobot,rad);
       virtualRobot.drawToFile(objectFile);
-      Lacze.Rysuj();
+      GNUPlot.Rysuj();
     break;
 
-    case 'j': // Jazda na wprost
-      cout << "Podaj odleglosc:" << endl;
+    case 'j': // Go forward
+      cout << "Give me a distance:" << endl;
       cin >> distance;
       oldDistance += distance;
 
-      wek.setX(distance * cos(rad+oldRad));
-      wek.setY(distance * sin(rad+oldRad));
+      vec.setX(distance * cos(rad+oldRad));
+      vec.setY(distance * sin(rad+oldRad));
 
       virtualMove.setStart(virtualRobot[7]);
-      virtualMove.setEnd(virtualRobot[7]+wek);
+      virtualMove.setEnd(virtualRobot[7]+vec);
 
-      virtualRobot = virtualRobot + wek;
+      virtualRobot = virtualRobot + vec;
       virtualMove.drawToFile(moveFile);
       virtualRobot.drawToFile(objectFile);
-      Lacze.Rysuj();
+      GNUPlot.Rysuj();
       if (virtualRobot.collision(obj1,obj2,obj3) == true)
-	cout << "UWAGA! NASTAPILA KOLIZJA ROBOTA Z INNYM OBIEKTEM!" << endl;
+	     cout << "WARNING! There was a robot collision with other object!" << endl;
       break;
 
-    case 'd': // Przebyta droga
+    case 'd': // Distance traveled
       cout << oldDistance << endl;
       break;
 
-    case 't': // Translacja
-      cout << "Podaj wektor translacji x,y:" << endl;
-      cin >> translacja;
-      virtualRobot = virtualRobot + translacja;
+    case 't': // Translation
+      cout << "Give me a translation vector x, y:" << endl;
+      cin >> translate;
+      virtualRobot = virtualRobot + translate;
       virtualRobot.drawToFile(objectFile);
-      Lacze.Rysuj();
+      GNUPlot.Rysuj();
       break;
 
-    case 'p': // Ustawienia poczatkowe
+    case 'p': // Reset settings
       Init(20,20,10,robot);
       Init(110,20,15,robot2); rotate(robot2, M_PI);
       Init(90,100,5,robot3);  rotate(robot3, M_PI);
@@ -214,22 +214,22 @@ int main()
       remove("move.dat");
       move.setStart(robot[7]);
       move.setEnd(robot[7]);
-      Lacze.DodajNazwePliku("move.dat",PzG::RR_Ciagly,2);
+      GNUPlot.DodajNazwePliku("move.dat",PzG::RR_Ciagly,2);
       move.drawToFile("move.dat");
-      Lacze.Rysuj();
+      GNUPlot.Rysuj();
 
       break;
 
     default:
-      cout << "Takiej opcji nie ma w menu!" << endl;
+      cout << "This is not an option from menu!" << endl;
       break;
     }
-    cout << "Twoj wybor (Wybrany robot: " << robotIndex << ") -> ";
+    cout << "Your choice (Picked robot: " << robotIndex << ") -> ";
     cin >> a;
   }
-  cout << "Koniec dzialania programu!" << endl << endl;
+  cout << "Exit! See you soon!" << endl << endl;
 
-  remove("move.dat"); // Usuniecie starych sciezek
+  remove("move.dat"); // Remove old paths
   remove("move2.dat");
   remove("move3.dat");
   return 0;
